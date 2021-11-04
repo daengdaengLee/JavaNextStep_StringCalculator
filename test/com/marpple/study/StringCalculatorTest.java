@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,6 +25,16 @@ class StringCalculatorTest {
         Arrays.fill(spaces, ' ');
         String expression = new String(spaces);
         int expected = 0;
+        int actual = new StringCalculator(expression).run();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void 쉼표로_구분된_음이_아닌_정수들의_문자열을_입력하면_모든_정수를_더한_값을_반환한다() {
+        int len = new Random().nextInt(1, 11);
+        int[] numbers = IntStream.range(0, len).map((int i) -> new Random().nextInt(0, 100)).toArray();
+        String expression = Arrays.stream(numbers).boxed().map(String::valueOf).collect(Collectors.joining(","));
+        int expected = Arrays.stream(numbers).sum();
         int actual = new StringCalculator(expression).run();
         assertEquals(expected, actual);
     }
