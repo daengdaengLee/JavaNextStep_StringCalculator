@@ -9,4 +9,8 @@ public class Config {
         }
         this.expression = args[0];
     }
+
+    public String getExpression() {
+        return this.expression;
+    }
 }
