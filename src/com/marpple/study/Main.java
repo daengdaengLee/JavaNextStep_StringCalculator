@@ -12,8 +12,11 @@ public class Main {
             return;
         }
 
-        StringCalculator calculator = new StringCalculator(config.getExpression());
-        int result = calculator.run();
-        System.out.println("결과 : " + result);
+        try {
+            ApplicationRunner.run(config);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
     }
 }
