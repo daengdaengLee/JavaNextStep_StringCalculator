@@ -70,4 +70,15 @@ class StringCalculatorTest {
         final String expression = Arrays.stream(numbers).boxed().map(String::valueOf).collect(Collectors.joining(":"));
         assertThrows(RuntimeException.class, new StringCalculator(expression)::run);
     }
+
+    @Test
+    public void 세미콜론_커스텀_구분자로_구분된_음이_아닌_정수들의_문자열을_입력하면_모든_정수를_더한_값을_반환한다() {
+        int len = new Random().nextInt(1, 11);
+        int[] numbers = IntStream.range(0, len).map((int i) -> new Random().nextInt(0, 100)).toArray();
+        String expression = Arrays.stream(numbers).boxed().map(String::valueOf).collect(Collectors.joining(";"));
+        expression = "//;\n" + expression;
+        int expected = Arrays.stream(numbers).sum();
+        int actual = new StringCalculator(expression).run();
+        assertEquals(expected, actual);
+    }
 }
