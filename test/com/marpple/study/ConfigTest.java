@@ -13,9 +13,7 @@ class ConfigTest {
     @Test
     public void 생성자에_길이가_0인_args를_전달하면_런타임_예외가_발생한다() {
         final String[] args = new String[0];
-        assertThrows(RuntimeException.class, () -> {
-            new Config(args);
-        });
+        assertThrows(RuntimeException.class, () -> new Config(args));
     }
 
     @Test
@@ -24,9 +22,7 @@ class ConfigTest {
                 .mapToObj((int i) -> IntStream.range(0, new Random().nextInt(1, 11)).map((int j) -> new Random().nextInt(0, 100)).toArray())
                 .map((int[] numbers) -> Arrays.stream(numbers).boxed().map(String::valueOf).collect(Collectors.joining(";")))
                 .toArray(String[]::new);
-        assertThrows(RuntimeException.class, () -> {
-            new Config(args);
-        });
+        assertThrows(RuntimeException.class, () -> new Config(args));
     }
 
     @Test
