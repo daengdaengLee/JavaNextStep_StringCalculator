@@ -59,4 +59,15 @@ class StringCalculatorTest {
         int actual = new StringCalculator(expression).run();
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void 음의_정수가_포함될_때_콜론으로_구분된_정수들의_문자열을_입력하면_런타임_에러를_발생시킨다() {
+        Random rand = new Random();
+        int len = rand.nextInt(1, 11);
+        int negative_idx = rand.nextInt(0, len);
+        int[] numbers = IntStream.range(0, len).map((int i) -> new Random().nextInt(0, 100)).toArray();
+        numbers[negative_idx] *= -1;
+        final String expression = Arrays.stream(numbers).boxed().map(String::valueOf).collect(Collectors.joining(":"));
+        assertThrows(RuntimeException.class, new StringCalculator(expression)::run);
+    }
 }
