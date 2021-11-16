@@ -1,11 +1,13 @@
 package com.marpple.study;
 
-import java.util.List;
+import com.marpple.study.parser.IParser;
+import com.marpple.study.parser.ParserFactory;
 
 public class ApplicationRunner {
     public static void run(Config config) {
-        List<Integer> numbers = ExpressionParser.parse(config.getExpression());
-        int sum = Calculator.sumAll(numbers.stream().mapToInt((Integer a) -> a));
+        IParser parser = ParserFactory.makeParser(config.getExpression());
+        parser.parse();
+        int sum = Calculator.sumAll(parser.getParsedValue().stream().mapToInt((Integer a) -> a));
         System.out.println("결과 : " + sum);
     }
 }
